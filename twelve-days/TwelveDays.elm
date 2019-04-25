@@ -9,7 +9,7 @@ recite start stop =
         |> List.map (\n -> initial n ++ gifts n ++ ".")
 
 
-{-| "On the nth day of Christmas my true love gave to me, " |
+{-| Say: "On the nth day of Christmas my true love gave to me" |
 -}
 initial : Int -> String
 initial n =
@@ -56,8 +56,8 @@ addPunctuation state list =
         a :: b :: [] ->
             state ++ ", " ++ a ++ ", and " ++ b
 
-        a :: b :: t ->
-            addPunctuation (state ++ ", " ++ a) (b :: t)
+        a :: t ->
+            addPunctuation (state ++ ", " ++ a) t
 
         [] ->
             state
