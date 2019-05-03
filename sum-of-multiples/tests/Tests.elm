@@ -20,4 +20,6 @@ tests =
             \() -> Expect.equal 2203160 (sumOfMultiples [ 43, 47 ] 10000)
         , test "[5, 25] 51" <|
             \() -> Expect.equal 275 (sumOfMultiples [ 5, 25 ] 51)
+        , test "[5, 5] 13" <|
+            \() -> Expect.equal 15 (sumOfMultiples [ 5, 5 ] 13)
         ]

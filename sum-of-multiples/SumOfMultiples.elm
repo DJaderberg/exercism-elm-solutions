@@ -1,15 +1,18 @@
 module SumOfMultiples exposing (sumOfMultiples)
 
-import Set
-
 
 sumOfMultiples : List Int -> Int -> Int
 sumOfMultiples multiples limit =
-    List.concatMap (multiple limit) multiples
-        |> Set.fromList
-        |> Set.foldl (+) 0
-
-
-multiple limit base =
     List.range 1 (limit - 1)
-        |> List.filter (modBy base >> (==) 0)
+        |> List.filter (divisibleByAny multiples)
+        |> List.sum
+
+
+divisibleByAny : List Int -> Int -> Bool
+divisibleByAny multiples value =
+    List.any (divisibleBy value) multiples
+
+
+divisibleBy : Int -> Int -> Bool
+divisibleBy nom denom =
+    modBy denom nom == 0
