@@ -1,7 +1,6 @@
 module ScrabbleScore exposing (scoreWord)
 
 import Dict exposing (Dict)
-import Maybe.Extra
 
 
 type alias Language =
@@ -13,9 +12,8 @@ scoreWord word =
     word
         |> String.toUpper
         |> String.toList
-        |> List.map (scoreLetter english)
-        |> Maybe.Extra.values
-        |> List.foldl (+) 0
+        |> List.filterMap (scoreLetter english)
+        |> List.sum
 
 
 scoreLetter : Language -> Char -> Maybe Int
@@ -39,13 +37,12 @@ english =
 createLanguage : List ( String, Int ) -> Language
 createLanguage list =
     list
-        |> List.map createLanguagePart
-        |> List.foldr Dict.union Dict.empty
+        |> List.concatMap createLanguagePart
+        |> Dict.fromList
 
 
-createLanguagePart : ( String, Int ) -> Language
+createLanguagePart : ( String, Int ) -> List ( Char, Int )
 createLanguagePart ( str, val ) =
     str
         |> String.toList
         |> List.map (\c -> ( c, val ))
-        |> Dict.fromList
