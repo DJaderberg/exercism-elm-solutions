@@ -22,4 +22,6 @@ tests =
             \() -> Expect.equal 275 (sumOfMultiples [ 5, 25 ] 51)
         , test "[5, 5] 13" <|
             \() -> Expect.equal 15 (sumOfMultiples [ 5, 5 ] 13)
+        , test "[3] 15" <|
+            \() -> Expect.equal 30 (sumOfMultiples [ 3 ] 15)
         ]
